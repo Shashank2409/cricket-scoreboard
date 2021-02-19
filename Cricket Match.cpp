@@ -29,6 +29,12 @@ class Player{
 	void changeCrease(){
 		this -> playing = !(this -> playing);
 	}
+	string getName(){
+		return this->name;
+	}
+	bool isPlaying(){
+		return this->playing;
+	}
 };
 
 class Team{
@@ -97,6 +103,7 @@ class Over{
 
 
 class Inning{
+	public:
 	vector<Over*>overs;
 	int currentScore , currentWickets , extras , ballsPlayed , totalBalls;
 	Team* playingTeam;
@@ -149,7 +156,7 @@ class Inning{
 		return this -> totalBalls;
 	}
 	
-	int getCurrentPlayers(){
+	pair<Player* , Player*> getCurrentPlayers(){
 		return this->currentPlayers;
 	}
 	
@@ -175,6 +182,7 @@ class Inning{
 };	
 
 class Match{
+	public:
 	vector<Inning*> innings;
 	pair<Team* , Team*> teams;
 	int innings_played;
@@ -255,31 +263,31 @@ int main(){
 				match -> addInning(inning2);
 				currentInning = inning2;
 			}
-			else if(total_balls_played >=  total_over*6*2){
+			else if(total_balls_played >=  total_overs*6*2){
 				cout<<"MATCH IS OVER!!\n";
 				continue;
 			}
 			
 			if(total_balls_played % 6 == 0){
-				currentInnings -> endOver();
+				currentInning -> endOver();
 			}
 			
 			string ball_score;
 			cin>>ball_score;
 			
 			if(ball_score == "Wicket"){
-				currentInnings -> addWicket();
+				currentInning -> addWicket();
 				total_balls_played++;
 			}
 			else if(ball_score == "Wide"){
-				currentInnings -> addScore(1);
+				currentInning -> addScore(1);
 			}
 			else if(ball_score == "NB"){
-				currentInnings -> addScore(1);
+				currentInning -> addScore(1);
 			}
 			else{
 				int score = ball_score[0] - '0';
-				currentInnings -> addScore(score);
+				currentInning -> addScore(score);
 				total_balls_played++;		
 			}
 		}
@@ -292,7 +300,7 @@ int main(){
 		else if(query_type == 3){
 			pair<Player* , Player*> currentPlayers = currentInning->getCurrentPlayers();
 			cout<<(currentPlayers.first)->getName();
-			if((currentPlayers.first)->isPlaying == true){
+			if((currentPlayers.first)->isPlaying() == true){
 				cout<<"*\n";
 			}
 			else{
@@ -300,7 +308,7 @@ int main(){
 			}
 			
 			cout<<(currentPlayers.second)->getName();
-			if((currentPlayers.second)->isPlaying == true){
+			if((currentPlayers.second)->isPlaying() == true){
 				cout<<"*";
 			}
 			else{
