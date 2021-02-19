@@ -131,12 +131,7 @@ class Inning{
 		this -> ballsPlayed = 0;
 		this -> totalBalls = 0;
 	}
-//	void addOver(Over over , int currentScore , int currentWickets , Team team){
-//		this -> overs.push_back(over);
-//		this -> currentScore = currentScore;
-//		this -> currentWickets += currentWicket;
-//		this -> team = team;
-//	}
+	
 	void addScore(int score){
 		this -> currentScore += score;
 		if((currentPlayers.first) -> playing == true){
@@ -221,13 +216,12 @@ int main(){
 	/*ADMIN INPUT*/
 	cout<<"Enter the team names\n";
 	string team1_name , team2_name;
-//	cin>>team1_name>>team2_name;
 	in>>team1_name>>team2_name;	
+	
 	cout<<"Enter "<<team1_name<<" playing 11 names\n";
 	Team *team1 = new Team(team1_name);
 	for(int i = 0; i < team1 -> noOfPlayersInATeam; i++){
 		string player_name;
-//		cin>>player_name;
 		in>>player_name;
 		cout<<player_name<<endl;
 				
@@ -239,7 +233,6 @@ int main(){
 	Team *team2 = new Team(team2_name);
 	for(int i = 0; i < team2 -> noOfPlayersInATeam; i++){
 		string player_name;
-//		cin>>player_name;
 		in>>player_name;
 		cout<<player_name<<endl;
 		
@@ -259,7 +252,6 @@ int main(){
 	Over *currentOver;
 	Ball *currentBall;
 	Match *match = new Match(team1 , team2);
-//	match -> addInning(inning);
 
 	/*COMMENTATOR AND VIEWER INPUT*/
 	cout<<"Print\n1 for 'Ball played'\n2 for getting the current score and wickets\n3 for getting the current players\n";
@@ -342,6 +334,7 @@ int main(){
 			}
 			
 		}
+		
 		else{
 			cout<<"END\n";
 			break;
