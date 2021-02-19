@@ -164,6 +164,11 @@ class Inning{
 		return this -> totalBalls;
 	}
 	
+	int getCurrentPlayers(){
+		return this->currentPlayers;
+	}
+	
+	
 	void endOver(){
 		(currentPlayers.first) -> changeCrease();
 		(currentPlayers.second) -> changeCrease();
@@ -293,10 +298,29 @@ int main(){
 				total_balls_played++;		
 			}
 		}
+		
 		else if(query_type == 2){
-			
+			int score = currentInning -> getTotalScore() , wickets = currentInning -> getWickets();
+			cout<<score<<"/"<<wickets<<endl;
 		}
+		
 		else if(query_type == 3){
+			pair<Player* , Player*> currentPlayers = currentInning->getCurrentPlayers();
+			cout<<(currentPlayers.first)->getName();
+			if((currentPlayers.first)->isPlaying == true){
+				cout<<"*\n";
+			}
+			else{
+				cout<<"\n";
+			}
+			
+			cout<<(currentPlayers.second)->getName();
+			if((currentPlayers.second)->isPlaying == true){
+				cout<<"*";
+			}
+			else{
+				cout<<"\n";
+			}
 			
 		}
 		else{
@@ -340,7 +364,7 @@ Which team is batting first? Ind
 
 1 for "Ball played" 
 2 for getting the current score and wickets
-3 for getting the current players
+3 for getting the current players and scores
 
 
 */
