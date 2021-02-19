@@ -80,24 +80,37 @@ class Team{
 
 
 class Ball{
+	public:
 	int score;
 	Player* player;
+	bool wicket , NB , wide;
 	
-	updateScore(int score){
+	Ball(){
+		this->score = 0;
+		this->wicket = false;
+		this->wide = false;
+		this->NB = false;
+	}
+	void updateScore(int score){
 		this -> score = score;
+	}
+	void wicketBall(){
+		this->wicket = true;
+	}
+	void wideBall(){
+		this->wide = true;
+	}
+	void noBall(){
+		this->NB = true;
 	}
 };
 
 class Over{
+	public:
 	vector<Ball*> balls;
 
 	void addBall(Ball *ball){
 		(this -> balls).push_back(ball);
-	}
-	int getScore(){
-		for(int i = 0; i < balls.size(); i++){
-			
-		}
 	}
 };
 
@@ -161,9 +174,10 @@ class Inning{
 	}
 	
 	
-	void endOver(){
+	void endOver(Over *over){
 		(currentPlayers.first) -> changeCrease();
 		(currentPlayers.second) -> changeCrease();
+		(this->overs).push_back(over);
 	}
 	
 	/*
@@ -242,6 +256,8 @@ int main(){
 	
 	int total_balls_played = 0;
 	Inning *currentInning;
+	Over *currentOver;
+	Ball *currentBall;
 	Match *match = new Match(team1 , team2);
 //	match -> addInning(inning);
 
@@ -250,9 +266,11 @@ int main(){
 	
 	while(1){
 		int query_type;
-		cin>>query_type;
+		in>>query_type;
 		
+		cout<<query_type<<endl;
 		if(query_type == 1){
+			
 			if(total_balls_played == 0){
 				Inning *inning1 = new Inning(total_overs , team1);
 				match -> addInning(inning1);
@@ -268,28 +286,36 @@ int main(){
 				continue;
 			}
 			
+			Ball *ball = new Ball();
+			currentBall = ball;
+			
 			if(total_balls_played % 6 == 0){
-				currentInning -> endOver();
+				currentInning -> endOver(currentOver);
 			}
 			
 			string ball_score;
-			cin>>ball_score;
+			in>>ball_score;
 			
 			if(ball_score == "Wicket"){
 				currentInning -> addWicket();
 				total_balls_played++;
+				ball->wicketBall();
 			}
 			else if(ball_score == "Wide"){
 				currentInning -> addScore(1);
+				ball->wideBall();
 			}
 			else if(ball_score == "NB"){
 				currentInning -> addScore(1);
+				ball->noBall();
 			}
 			else{
 				int score = ball_score[0] - '0';
 				currentInning -> addScore(score);
-				total_balls_played++;		
+				total_balls_played++;	
+				ball->updateScore(score);	
 			}
+			currentOver->addBall(currentBall);
 		}
 		
 		else if(query_type == 2){
@@ -317,7 +343,8 @@ int main(){
 			
 		}
 		else{
-			cout<<"INVALID QUERY\n";
+			cout<<"END\n";
+			break;
 		}
 	}
 }
