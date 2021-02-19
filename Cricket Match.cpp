@@ -351,6 +351,19 @@ Which team is batting first? Ind
 2 for getting the current score and wickets
 3 for getting the current players and scores
 
+1 2
+2
+1 4
+1 Wicket
+1 2
+3
+1 Wide
+1 3
+
+OUTPUT
+2/0
+b 2*
+c 0
 
 */
 
