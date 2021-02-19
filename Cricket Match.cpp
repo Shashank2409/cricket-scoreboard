@@ -134,7 +134,6 @@ class Inning{
 	
 	void addScore(int score){
 		this -> currentScore += score;
-//		cout<<"current Score\n";
 		if((currentPlayers.first) -> isPlaying() == true){
 			(currentPlayers.first) -> addScore(score);
 		}
@@ -261,11 +260,8 @@ int main(){
 		int query_type;
 		in>>query_type;
 		
-//		cout<<"query\n";
-//		cout<<query_type<<endl;
 		
 		if(query_type == 1){
-//			cout<<"query 1\n";
 			if(total_balls_played == 0){
 				Inning *inning1 = new Inning(total_overs , team1);
 				match -> addInning(inning1);
@@ -310,19 +306,14 @@ int main(){
 			}
 			else{
 				int score = ball_score[0] - '0';
-//				cout<<"score "<<score<<endl;
 				currentInning -> addScore(score);
 				total_balls_played++;	
-//				cout<<"yes\n";
 				ball->updateScore(score);	
-//				cout<<"yes\n";
 			}
 			currentOver->addBall(currentBall);
-//			cout<<"yes\n";
 		}
 		
 		else if(query_type == 2){
-//			cout<<"query2\n";
 			int score = currentInning -> getTotalScore() , wickets = currentInning -> getWickets();
 			cout<<score<<"/"<<wickets<<endl;
 		}
