@@ -3,21 +3,6 @@ using namespace std;
 
 string input_file_path = "input.txt" , output_file_path = "output.txt";
 
-//Class T20 : public Match{
-//	
-//
-//}
-//
-//Class ODI : public Match{
-//	
-//
-//}
-//
-//Class TestMatch : public Match{
-//	
-//}
-
-
 class Player{
 	public:
 	string name;
