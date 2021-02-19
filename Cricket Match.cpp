@@ -35,6 +35,10 @@ class Player{
 	bool isPlaying(){
 		return this->playing;
 	}
+	
+	void getCrease(){
+		cout<<this->playing<<endl;
+	}
 };
 
 class Team{
@@ -130,10 +134,13 @@ class Inning{
 		this -> extras = 0;
 		this -> ballsPlayed = 0;
 		this -> totalBalls = 0;
+		(this->currentPlayers).first -> changeCrease();
 	}
 	
 	void addScore(int score){
 		this -> currentScore += score;
+//		(currentPlayers.first)->getCrease();
+//		(currentPlayers.second)->getCrease();
 		if((currentPlayers.first) -> isPlaying() == true){
 			(currentPlayers.first) -> addScore(score);
 		}
@@ -320,7 +327,7 @@ int main(){
 		
 		else if(query_type == 3){
 			pair<Player* , Player*> currentPlayers = currentInning->getCurrentPlayers();
-			cout<<(currentPlayers.first)->getName();
+			cout<<(currentPlayers.first)->getName()<<" "<<(currentPlayers.first)->getScore();
 			if((currentPlayers.first)->isPlaying() == true){
 				cout<<"*\n";
 			}
@@ -328,7 +335,7 @@ int main(){
 				cout<<"\n";
 			}
 			
-			cout<<(currentPlayers.second)->getName();
+			cout<<(currentPlayers.second)->getName()<<" "<<(currentPlayers.second)->getScore();
 			if((currentPlayers.second)->isPlaying() == true){
 				cout<<"*";
 			}
