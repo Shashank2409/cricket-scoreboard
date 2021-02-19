@@ -110,7 +110,7 @@ class Over{
 	vector<Ball*> balls;
 
 	void addBall(Ball *ball){
-		(this -> balls).push_back(ball);
+		(this->balls).push_back(ball);
 	}
 };
 
@@ -134,7 +134,8 @@ class Inning{
 	
 	void addScore(int score){
 		this -> currentScore += score;
-		if((currentPlayers.first) -> playing == true){
+//		cout<<"current Score\n";
+		if((currentPlayers.first) -> isPlaying() == true){
 			(currentPlayers.first) -> addScore(score);
 		}
 		else{
@@ -260,9 +261,11 @@ int main(){
 		int query_type;
 		in>>query_type;
 		
-		cout<<query_type<<endl;
+//		cout<<"query\n";
+//		cout<<query_type<<endl;
+		
 		if(query_type == 1){
-			
+//			cout<<"query 1\n";
 			if(total_balls_played == 0){
 				Inning *inning1 = new Inning(total_overs , team1);
 				match -> addInning(inning1);
@@ -282,7 +285,11 @@ int main(){
 			currentBall = ball;
 			
 			if(total_balls_played % 6 == 0){
-				currentInning -> endOver(currentOver);
+				if(total_balls_played != 0){
+					currentInning -> endOver(currentOver);	
+				}
+				currentOver = new Over();
+				
 			}
 			
 			string ball_score;
@@ -303,14 +310,19 @@ int main(){
 			}
 			else{
 				int score = ball_score[0] - '0';
+//				cout<<"score "<<score<<endl;
 				currentInning -> addScore(score);
 				total_balls_played++;	
+//				cout<<"yes\n";
 				ball->updateScore(score);	
+//				cout<<"yes\n";
 			}
 			currentOver->addBall(currentBall);
+//			cout<<"yes\n";
 		}
 		
 		else if(query_type == 2){
+//			cout<<"query2\n";
 			int score = currentInning -> getTotalScore() , wickets = currentInning -> getWickets();
 			cout<<score<<"/"<<wickets<<endl;
 		}
